@@ -3,31 +3,101 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BlogSite</title>
-    <link rel="stylesheet" href="#">
+    <link rel="stylesheet" href="{% static 'css/for_base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #fff;
+            border-bottom: 1px solid #ccc;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        nav h1, nav h3 {
+            margin: 0;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 18px;
+            padding: 0 10px;
+        }
+        nav a:hover {
+            color: #007bff;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        h3 {
+            font-size: 18px;
+        }
+        .content {
+            margin-top: 120px;
+            max-width: 800px;
+            margin: 120px auto 0;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
 <header>
     {% if user.is_authenticated %}
-        <h1>Welcome {{ user.username }}!</h1>
         <nav>
-            <h1><a href="{% url 'home:home-page' %}">Home</a></h1>
-            <h3><a href="{% url 'home:saved' %}">Saved</a></h3>
-            <h3><a href="{% url 'users:profile' %}">Profile</a></h3>
-            <h3><a href="{% url 'home:about' %}">About</a></h3>
-            <h3><a href="{% url 'users:logout' %}">Logout</a></h3>
+            <a href="{% url 'home:home-page' %}"><h1>Welcome {{ user.username }}!</h1></a>
+            <div>
+                <a href="{% url 'home:home-page' %}">Home</a>
+                <a href="{% url 'home:saved' %}">Saved</a>
+                <a href="{% url 'users:profile' %}">Profile</a>
+                <a href="{% url 'home:about' %}">About</a>
+                <a href="{% url 'users:logout' %}">Logout</a>
+            </div>
         </nav>
     {% else %}
         <nav>
-            <h1><a href="{% url 'home:home-page' %}">Home</a></h1>
-            <h3><a href="{% url 'users:register' %}">Register</a></h3>
-            <h3><a href="{% url 'users:login' %}">Login</a></h3>
-            <h3><a href="{% url 'home:about' %}">About</a></h3>
+            <h1>BlogSite</h1>
+            <div>
+                <a href="{% url 'home:home-page' %}">Home</a>
+                <a href="{% url 'users:register' %}">Register</a>
+                <a href="{% url 'users:login' %}">Login</a>
+                <a href="{% url 'home:about' %}">About</a>
+            </div>
         </nav>
     {% endif %}
 </header>
-<br><br><br>
-<div>
+<div class="content">
     {% block content %}
     {% endblock content %}
 </div>

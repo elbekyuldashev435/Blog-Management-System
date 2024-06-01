@@ -57,7 +57,7 @@ class LogoutView(View):
 
 class ProfileView(View):
     def get(self, request):
-        products = Products.objects.filter(author=request.user)
+        products = Products.objects.filter(author=request.user).order_by('-id')
         context = {
             'user': request.user,
             'products': products

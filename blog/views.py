@@ -1,14 +1,7 @@
 from django.shortcuts import render, redirect,  get_object_or_404
-from django.urls import reverse_lazy
 from django.views import View
-<<<<<<< HEAD
-from django.views.generic import DeleteView, CreateView
-from .models import Products, Saved, About
-from .forms import ProductUpdateForm, ProductForm
-=======
 from .models import Products, Saved, About, Comments
-from .forms import ProductUpdateForm, AddCommentForm
->>>>>>> 4b4278c130807f6c602707a3f1778a3e45b9e02f
+from .forms import ProductUpdateForm, AddCommentForm, ProductForm
 # Create your views here.
 
 
@@ -23,7 +16,7 @@ class AboutView(View):
 
 class ProductsView(View):
     def get(self, request):
-        products = Products.objects.all()
+        products = Products.objects.all().order_by('-id')
         context = {
             'products': products
         }
@@ -65,7 +58,7 @@ class ProductUpdate(View):
 class SavedView(View):
     def get(self, request):
         # Display saved products for the user
-        saved_items = Saved.objects.filter(user=request.user).select_related('product')
+        saved_items = Saved.objects.filter(user=request.user).select_related('product').order_by('-id')
         return render(request, 'saved.html', {'saved_items': saved_items})
 
     def post(self, request, pk):
@@ -75,7 +68,6 @@ class SavedView(View):
         return redirect('home:saved')
 
 
-<<<<<<< HEAD
 class ProductDeleteView(View):
     def get(self, request, pk):
         product = get_object_or_404(Products, pk=pk)
@@ -100,7 +92,8 @@ class AddProductView(View):
             product.save()
             return redirect('users:profile')  # Adjust redirect as necessary
         return render(request, 'add_product.html', {'form': form})
-=======
+
+
 class AddCommentView(View):
     def get(self, request, pk):
         product = Products.objects.get(pk=pk)
@@ -127,6 +120,7 @@ class AddCommentView(View):
             }
             return render(request, 'add_comment.html', context=context)
 
+
 class CommentView(View):
     def get(self, request, pk):
         product = Products.objects.get(pk=pk)
@@ -136,4 +130,3 @@ class CommentView(View):
             'comments': comments
         }
         return render(request, 'comments.html', context=context)
->>>>>>> 4b4278c130807f6c602707a3f1778a3e45b9e02f

@@ -2,8 +2,19 @@
 
 {% block content %}
 <body>
+    <h1>Today's news</h1>
     {% for product in products %}
-        <a href="{% url 'home:detail' product.pk %}">{{ product.title }}</a><br><br>
+        <div>
+            <h4>----------------------------------------------------------------------------------------------------------------------------------------------------</h4>
+            <a href="{% url 'home:detail' product.pk %}"><h4>{{ product.title }}</h4></a>
+            {% if product.video %}
+                <video width="640" height="480" controls>
+                    <source src="{{ product.video.url }}" type="video/mp4">
+                </video>
+            {% else %}
+                <a href="{% url 'home:detail' product.pk %}"><img src="{{ product.image.url }}" height="300px"></a>
+            {% endif %}
+        </div>
     {% endfor %}
 </body>
 {% endblock content %}

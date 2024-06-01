@@ -3,9 +3,21 @@
 {% extends 'base.html' %}
 {% block content %}
 <body>
-    {% for i in saved_items %}
-        <a href="#">{{ i.product.title }}</a>
-    {% endfor %}
+    {% if saved_items %}
+        {% for i in saved_items %}
+            <h3>-------------------------------------------------------------------------------------------------------------------------------------</h3>
+            <a href="{% url 'home:detail' i.product.pk %}"><h4>{{ i.product.title }}</h4></a>
+            {% if i.product.video %}
+                <video width="640" height="480" controls>
+                    <source src="{{ product.video.url }}" type="video/mp4">
+                </video>
+            {% else %}
+                <a href="{% url 'home:detail' i.product.pk %}"><img src="{{ i.product.image.url }}" height="300px"></a>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <h2>No contents saved yet.</h2>
+    {% endif %}
 </body>
 
 
