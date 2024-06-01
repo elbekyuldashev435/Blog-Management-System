@@ -1,0 +1,14 @@
+
+
+{% extends 'base.html' %}
+{% block content %}
+<body>
+    <h3>Comments</h3>
+    {% for comment in comments %}
+        <p>{{ comment.comment }} | {{ comment.user.username}}</p>
+    {% endfor %}
+    <p><a href="{% url 'home:home-page' %}">Back</a></p>
+</body>
+
+
+{% endblock content %}

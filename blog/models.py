@@ -27,7 +27,7 @@ class Comments(models.Model):
         db_table = 'comments'
 
     def __str__(self):
-        return f"ID: {self.pk} | User: {self.user.username} | Product: {self.product.title}"
+        return f"{self.user.username} | Product: {self.product.title}"
 
 
 class Saved(models.Model):
