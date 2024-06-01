@@ -1,9 +1,14 @@
 from django.shortcuts import render, redirect,  get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
+<<<<<<< HEAD
 from django.views.generic import DeleteView, CreateView
 from .models import Products, Saved, About
 from .forms import ProductUpdateForm, ProductForm
+=======
+from .models import Products, Saved, About, Comments
+from .forms import ProductUpdateForm, AddCommentForm
+>>>>>>> 4b4278c130807f6c602707a3f1778a3e45b9e02f
 # Create your views here.
 
 
@@ -29,7 +34,8 @@ class DetailView(View):
     def get(self, request, pk):
         product = Products.objects.get(pk=pk)
         context = {
-            'product': product
+            'product': product,
+
         }
         return render(request, 'detail.html', context=context)
 
@@ -69,6 +75,7 @@ class SavedView(View):
         return redirect('home:saved')
 
 
+<<<<<<< HEAD
 class ProductDeleteView(View):
     def get(self, request, pk):
         product = get_object_or_404(Products, pk=pk)
@@ -93,3 +100,40 @@ class AddProductView(View):
             product.save()
             return redirect('users:profile')  # Adjust redirect as necessary
         return render(request, 'add_product.html', {'form': form})
+=======
+class AddCommentView(View):
+    def get(self, request, pk):
+        product = Products.objects.get(pk=pk)
+        comment_form = AddCommentForm()
+        context = {
+            'product': product,
+            'form': comment_form
+        }
+        return render(request, 'add_comment.html', context=context)
+
+    def post(self, request, pk):
+        product = Products.objects.get(pk=pk)
+        comment_form = AddCommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.user = request.user
+            comment.product = product
+            comment.save()
+            return redirect('home:detail', pk=pk)
+        else:
+            context = {
+                'product': product,
+                'form': comment_form
+            }
+            return render(request, 'add_comment.html', context=context)
+
+class CommentView(View):
+    def get(self, request, pk):
+        product = Products.objects.get(pk=pk)
+        comments = Comments.objects.filter(product=pk)
+        context = {
+            'product': product,
+            'comments': comments
+        }
+        return render(request, 'comments.html', context=context)
+>>>>>>> 4b4278c130807f6c602707a3f1778a3e45b9e02f

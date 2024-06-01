@@ -21,7 +21,12 @@
              {% csrf_token %}
              <button type="submit">Save Product</button>
          </form>
+        {% if user == request.user %}
+         <a href="{% url 'home:add-comment' product.pk %}" >Add Review</a>
+        {% endif %}
     {% endif %}
+    <a href="{% url 'home:comment' product.pk%}">Comments</a>
+
     {% if request.user == product.author %}
       <a href="{% url 'home:product-update' product.pk %}">Edit</a> |
       <a href="{% url 'home:delete' product.pk %}">Delete</a>
