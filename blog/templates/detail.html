@@ -1,0 +1,30 @@
+
+
+<title>Product</title>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <body>
+    {% if product.video %}
+      <video width="640" height="480" controls>
+      <source src="{{ product.video.url }}" type="video/mp4">
+      </video>
+    {% else %}
+        <img src="{{ product.image.url }}" height="300px">
+    {% endif %}
+
+    <h3>{{ product.title }}</h3>
+    <h4>{{ product.description }}</h4>
+    {{ product.author.username }}<br><br>
+    {% if user.is_authenticated %}
+         <form action="{% url 'home:add-save' product.pk %}" method="post">
+             {% csrf_token %}
+             <button type="submit">Save Product</button>
+         </form>
+    {% endif %}
+    {% if request.user == product.author %}
+      <a href="{% url 'home:product-update' product.pk %}">Edit</a> |
+      <a href="#">Delete</a>
+    {% endif %}
+  </body>
+    {% endblock content %}

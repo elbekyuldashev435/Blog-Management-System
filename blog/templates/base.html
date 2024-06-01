@@ -11,18 +11,18 @@
     {% if user.is_authenticated %}
         <h1>Welcome {{ user.username }}!</h1>
         <nav>
-            <h1><a href="#">Home</a></h1>
-            <h3><a href="#">Saved</a></h3>
+            <h1><a href="{% url 'home:home-page' %}">Home</a></h1>
+            <h3><a href="{% url 'home:saved' %}">Saved</a></h3>
             <h3><a href="{% url 'users:profile' %}">Profile</a></h3>
-            <h3><a href="#">About</a></h3>
+            <h3><a href="{% url 'home:about' %}">About</a></h3>
             <h3><a href="{% url 'users:logout' %}">Logout</a></h3>
         </nav>
     {% else %}
         <nav>
-            <h1><a href="#">Home</a></h1>
+            <h1><a href="{% url 'home:home-page' %}">Home</a></h1>
             <h3><a href="{% url 'users:register' %}">Register</a></h3>
             <h3><a href="{% url 'users:login' %}">Login</a></h3>
-            <h3><a href="#">About</a></h3>
+            <h3><a href="{% url 'home:about' %}">About</a></h3>
         </nav>
     {% endif %}
 </header>

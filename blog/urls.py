@@ -1,8 +1,13 @@
 from django.urls import path
-from .views import home_page
+from .views import ProductsView, DetailView, SavedView, ProductUpdate, AboutView
 
 
 app_name = 'home'
 urlpatterns = [
-    path('', home_page, name='home-page'),
+    path('', ProductsView.as_view(), name='home-page'),
+    path('detail/<int:pk>/', DetailView.as_view(), name='detail'),
+    path('saved/', SavedView.as_view(), name='saved'),
+    path('add-save/<int:pk>/', SavedView.as_view(), name='add-save'),
+    path('product-update/<int:pk>/', ProductUpdate.as_view(), name='product-update'),
+    path('about/', AboutView.as_view(), name='about'),
 ]

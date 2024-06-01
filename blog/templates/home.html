@@ -2,8 +2,8 @@
 
 {% block content %}
 <body>
-    <h1>
-        Blog Site
-    </h1>
+    {% for product in products %}
+        <a href="{% url 'home:detail' product.pk %}">{{ product.title }}</a><br><br>
+    {% endfor %}
 </body>
 {% endblock content %}

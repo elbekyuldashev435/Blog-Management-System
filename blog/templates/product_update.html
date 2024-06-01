@@ -1,0 +1,19 @@
+
+
+<title>UpdateProduct</title>
+
+{% extends 'base.html' %}
+{% block content %}
+<link rel="stylesheet" href="">
+<header>
+  <a href="{% url 'home:home-page' %}">Home</a>
+</header>
+
+<body>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+  </form>
+</body>
+{% endblock content %}

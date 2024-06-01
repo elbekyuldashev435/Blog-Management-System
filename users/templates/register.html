@@ -1,11 +1,12 @@
 
 
-<title>Register</title>
+{% extends 'base.html' %}
 {% load static %}
+<title>Register</title>
+
 <link rel="stylesheet" href="#">
-<header>
-  <a href="{% url 'home:home-page' %}">Home</a>
-</header>
+
+{% block content %}
 
 <body>
   <h1>Register Page</h1>
@@ -15,3 +16,4 @@
     <button type="submit">submit</button>
   </form>
 </body>
+{% endblock content %}

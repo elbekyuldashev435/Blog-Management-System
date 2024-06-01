@@ -1,12 +1,10 @@
 
-
+{% extends 'base.html' %}
+{% load static %}
 <title>UpdateProfile</title>
 
-{% load static %}
+{% block content %}
 <link rel="stylesheet" href="{% static 'css/for_proflle_update.css' %}">
-<header>
-  <a href="{% url 'home:home-page' %}">Home</a>
-</header>
 
 <body>
   <form method="post" enctype="multipart/form-data">
@@ -15,3 +13,4 @@
     <input type="submit" value="Update Profile">
   </form>
 </body>
+{% endblock content %}

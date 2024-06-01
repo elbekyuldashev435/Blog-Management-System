@@ -1,14 +1,11 @@
 
-
+{% extends 'base.html' %}
+{% load static %}
 <title>Profile</title>
 
-{% load static %}
 <link rel="stylesheet" href="#">
-<header>
-  <a href="{% url 'home:home-page' %}">Home</a><br><br>
-  <a href="#">About</a> |
-  <a href="{% url 'users:logout' %}">logout</a>
-</header>
+
+{% block content %}
 <body>
   <h1>Profile</h1>
   <img alt="user-image" style="border-radius: 55px" src="{{ user.image.url }} " height="100px"><br>
@@ -19,3 +16,4 @@
 
   <a href="{% url 'users:update-profile' %}"><button>Edit profile</button></a>
 </body>
+{% endblock content %}

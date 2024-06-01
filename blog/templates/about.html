@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% block content %}
+<div class="container">
+    <h1>About Us</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for about in about_us %}
+            {% if about.pk == 1 %}
+                <img src="{{ about.image.url }}" height="200px" alt="CEO Image"><br><br>
+                <h2>{{ about.first_name }} {{ about.last_name }}</h2>
+                <h3>{{ about.title }}</h3>
+            {% endif %}
+        {% endfor %}
+    </form>
+</div>
+{% endblock content %}

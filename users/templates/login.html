@@ -1,13 +1,10 @@
 
-
+{% extends 'base.html' %}
 {% load static %}
 <link rel="stylesheet" href="#">
 <title>Login</title>
 
-<header>
-  <a href="{% url 'home:home-page' %}">Home</a>
-</header>
-
+{% block content %}
 <body>
   <h1>Login Page</h1>
   <form method="post">
@@ -16,3 +13,4 @@
     <button type="submit">submit</button>
   </form>
 </body>
+{% endblock content %}

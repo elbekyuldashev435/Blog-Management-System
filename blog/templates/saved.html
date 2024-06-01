@@ -1,0 +1,12 @@
+
+
+{% extends 'base.html' %}
+{% block content %}
+<body>
+    {% for i in saved_items %}
+        <a href="#">{{ i.product.title }}</a>
+    {% endfor %}
+</body>
+
+
+{% endblock content %}

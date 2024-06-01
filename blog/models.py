@@ -39,3 +39,16 @@ class Saved(models.Model):
 
     def __str__(self):
         return f"ID: {self.pk} | User: {self.user.username} | Product: {self.product.title}"
+
+
+class About(models.Model):
+    image = models.ImageField(upload_to='all/about', blank=True, null=True)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    title = models.TextField()
+
+    class Meta:
+        db_table = 'about_us'
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
