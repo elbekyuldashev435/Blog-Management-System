@@ -1,0 +1,18 @@
+
+
+{% load static %}
+<link rel="stylesheet" href="#">
+<title>Login</title>
+
+<header>
+  <a href="{% url 'home:home-page' %}">Home</a>
+</header>
+
+<body>
+  <h1>Login Page</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">submit</button>
+  </form>
+</body>

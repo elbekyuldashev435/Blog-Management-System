@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BlogSite</title>
+    <link rel="stylesheet" href="#">
+</head>
+<body>
+<header>
+    {% if user.is_authenticated %}
+        <h1>Welcome {{ user.username }}!</h1>
+        <nav>
+            <h1><a href="#">Home</a></h1>
+            <h3><a href="#">Saved</a></h3>
+            <h3><a href="{% url 'users:profile' %}">Profile</a></h3>
+            <h3><a href="#">About</a></h3>
+            <h3><a href="{% url 'users:logout' %}">Logout</a></h3>
+        </nav>
+    {% else %}
+        <nav>
+            <h1><a href="#">Home</a></h1>
+            <h3><a href="{% url 'users:register' %}">Register</a></h3>
+            <h3><a href="{% url 'users:login' %}">Login</a></h3>
+            <h3><a href="#">About</a></h3>
+        </nav>
+    {% endif %}
+</header>
+<br><br><br>
+<div>
+    {% block content %}
+    {% endblock content %}
+</div>
+</body>
+</html>
