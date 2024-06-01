@@ -3,6 +3,8 @@ from .forms import CustomUserForm, ProfileUpdateForm
 from django.views import View
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
+
+from blog.models import Products
 # Create your views here.
 
 
@@ -55,8 +57,10 @@ class LogoutView(View):
 
 class ProfileView(View):
     def get(self, request):
+        products = Products.objects.filter(author=request.user)
         context = {
-            'user': request.user
+            'user': request.user,
+            'products': products
         }
         return render(request, 'profile.html', context=context)
 

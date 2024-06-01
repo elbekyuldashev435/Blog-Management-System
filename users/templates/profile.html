@@ -13,7 +13,15 @@
   <h3>First name: {{ user.first_name }}</h3>
   <h3>Last name: {{ user.last_name }}</h3>
   <h3>Email: {{ user.email }}</h3>
+  <a href="{% url 'users:update-profile' %}"><button>Edit profile</button></a><br><br>
 
-  <a href="{% url 'users:update-profile' %}"><button>Edit profile</button></a>
+  <h1>Posts</h1>
+  <a href="{% url 'home:add-product' %}"><button>Add Post</button></a><br><br>
+  <div>
+    {% for product in products %}
+      <a href="{% url 'home:detail' product.pk %}"><img src="{{ product.image.url }}" height="300px"></a>
+      <h4>{{ product.title }}</h4>
+    {% endfor %}
+  </div>
 </body>
 {% endblock content %}

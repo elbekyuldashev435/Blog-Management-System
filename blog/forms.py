@@ -12,3 +12,9 @@ class ProductUpdateForm(ModelForm):
     class Meta:
         model = Products
         fields = ('image', 'video', 'title', 'description')
+
+
+class ProductForm(ModelForm):
+    class Meta:
+        model = Products
+        fields = ['image', 'video', 'title', 'description']

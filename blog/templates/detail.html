@@ -24,7 +24,7 @@
     {% endif %}
     {% if request.user == product.author %}
       <a href="{% url 'home:product-update' product.pk %}">Edit</a> |
-      <a href="#">Delete</a>
+      <a href="{% url 'home:delete' product.pk %}">Delete</a>
     {% endif %}
   </body>
     {% endblock content %}
