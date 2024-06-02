@@ -74,6 +74,17 @@ class SavedView(View):
         return redirect('home:saved')
 
 
+class DeleteSavedView(View):
+    def get(self, request, pk, ):
+        saved = get_object_or_404(Saved, pk=pk, user=request.user)
+        return render(request, 'delete_saved.html', {'saved': saved})
+
+    def post(self, request, pk):
+        saved = get_object_or_404(Saved, pk=pk, user=request.user)
+        saved.delete()
+        return redirect('home:saved')
+
+
 class ProductDeleteView(View):
     def get(self, request, pk):
         product = get_object_or_404(Products, pk=pk)
@@ -159,4 +170,4 @@ class DeleteCommentView(DeleteView):
     template_name = "delete_comment.html"
 
     def get_success_url(self):
-        return reverse_lazy('home:detail',kwargs={'pk': self.object.product.pk})
+        return reverse_lazy('home:detail', kwargs={'pk': self.object.product.pk})

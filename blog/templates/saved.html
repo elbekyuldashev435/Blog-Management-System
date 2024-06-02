@@ -11,8 +11,10 @@
                 <video width="640" height="480" controls>
                     <source src="{{ product.video.url }}" type="video/mp4">
                 </video>
+                <a href="{% url 'home:delete-saved' i.pk %}">Delete</a>
             {% else %}
                 <a href="{% url 'home:detail' i.product.pk %}"><img src="{{ i.product.image.url }}" height="300px"></a>
+                <a href="{% url 'home:delete-saved' i.pk %}">Delete</a>
             {% endif %}
         {% endfor %}
     {% else %}
