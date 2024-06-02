@@ -6,8 +6,12 @@
     <h3>Comments</h3>
     {% for comment in comments %}
         <p>{{ comment.comment }} | {{ comment.user.username}}</p>
+        {% if request.user == comment.user %}
+            <p><a href="{% url 'home:comment-update' comment.pk %}">Update</a></p>
+            <p><a href="{% url 'home:comment-delete' comment.pk %}">Delete</a></p>
+        {% endif %}
     {% endfor %}
-    <p><a href="{% url 'home:home-page' %}">Back</a></p>
+    <p><a href="{% url 'home:detail' product.pk %}">Back</a></p>
 </body>
 
 

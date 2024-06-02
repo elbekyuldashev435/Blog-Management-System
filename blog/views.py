@@ -1,7 +1,13 @@
-from django.shortcuts import render, redirect,  get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
 from django.views import View
+from django.views.generic import UpdateView, DeleteView
+
 from .models import Products, Saved, About, Comments
 from .forms import ProductUpdateForm, AddCommentForm, ProductForm
+from django.contrib import messages
+
+
 # Create your views here.
 
 
@@ -97,6 +103,9 @@ class AddProductView(View):
 class AddCommentView(View):
     def get(self, request, pk):
         product = Products.objects.get(pk=pk)
+        if Comments.objects.filter(product=pk, user=request.user).exists():
+            messages.error(request, "Siz allaqchon xabar qo'shgansiz!")
+            return redirect('home:detail', pk=pk)
         comment_form = AddCommentForm()
         context = {
             'product': product,
@@ -106,12 +115,16 @@ class AddCommentView(View):
 
     def post(self, request, pk):
         product = Products.objects.get(pk=pk)
+        if Comments.objects.filter(product=pk, user=request.user).exists():
+            messages.error(request, "Siz allaqchon xabar qo'shgansiz!")
+            return redirect('home:detail', pk=pk)
         comment_form = AddCommentForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
             comment.user = request.user
             comment.product = product
             comment.save()
+            messages.success(request, 'Xabar qoshildi')
             return redirect('home:detail', pk=pk)
         else:
             context = {
@@ -130,3 +143,20 @@ class CommentView(View):
             'comments': comments
         }
         return render(request, 'comments.html', context=context)
+
+
+class UpdateCommentView(UpdateView):
+    model = Comments
+    fields = ['comment']
+    template_name = "update_comment.html"
+
+    def get_success_url(self):
+        return reverse_lazy('home:detail', kwargs={'pk': self.object.product.pk})
+
+
+class DeleteCommentView(DeleteView):
+    model = Comments
+    template_name = "delete_comment.html"
+
+    def get_success_url(self):
+        return reverse_lazy('home:detail',kwargs={'pk': self.object.product.pk})
