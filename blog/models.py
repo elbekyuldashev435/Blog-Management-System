@@ -4,7 +4,7 @@ from users.models import CustomUser
 
 
 class Products(models.Model):
-    image = models.ImageField(upload_to='all/image', blank=True, null=True)
+    image = models.ImageField(upload_to='all/image', blank=True, null=True, default='default_img/default_product.jpg')
     video = models.FileField(upload_to='all/video', blank=True, null=True)
     title = models.CharField(max_length=100)
     description = models.TextField()
